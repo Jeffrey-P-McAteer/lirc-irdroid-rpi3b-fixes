@@ -31,8 +31,8 @@ build() {
   chmod +x ./configure
 
   # Fix some C stuff that causes linking to fail; line numbers will likely change
-  sed -i '182s/inline //' ./src/irtoy/daemons/transmit.c
-  sed -i '417s/inline //' ./src/irtoy/daemons/receive.c
+  sed -i '182s/inline //' ./daemons/transmit.c
+  sed -i '417s/inline //' ./daemons/receive.c
 
   ./configure --prefix=/usr --sbindir=/usr/bin --sysconfdir=/etc --localstatedir=/var \
     --with-transmitter --with-driver=usb_irtoy --enable-sandboxed
