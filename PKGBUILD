@@ -33,6 +33,8 @@ build() {
   # Fix some C stuff that causes linking to fail; line numbers will likely change
   sed -i '182s/inline //' ./daemons/transmit.c
   sed -i '417s/inline //' ./daemons/receive.c
+  sed -i '256s/inline //' ./daemons/lircd.c
+  sed -i '198s/inline //' ./tools/lircrcd.c
 
   ./configure --prefix=/usr --sbindir=/usr/bin --sysconfdir=/etc --localstatedir=/var \
     --with-transmitter --with-driver=usb_irtoy --enable-sandboxed
