@@ -40,9 +40,12 @@ build() {
   sed -i '3030s/manidx/"%s", manidx/' ./doc/man2html.c
 
   # Override a default
-  #sed -i '102s/"\/dev\/ttyACM0"/"\/dev\/lirc0"/' ./daemons/hw_usbirtoy.c
+  sed -i '102s/"\/dev\/ttyACM0"/"\/dev\/lirc0"/' ./daemons/hw_usbirtoy.c
   sed -i '68s/"\/dev\/ttyACM0"/"\/dev\/lirc0"/' ./setup.sh
   sed -i '219s/"\/dev\/ttyACM0"/"\/dev\/lirc0"/' ./setup.sh
+  sed -i '5s/"\/dev\/ttyACM0"/"\/dev\/lirc0"/' ./configure.sh
+
+
 
   ./configure --prefix=/usr --sbindir=/usr/bin --sysconfdir=/etc --localstatedir=/var \
     --with-transmitter --with-driver=usb_irtoy --enable-sandboxed
