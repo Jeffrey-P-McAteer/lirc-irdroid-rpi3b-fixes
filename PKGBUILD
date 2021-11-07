@@ -5,7 +5,7 @@ pkgname=lirc-irdroid
 pkgver=0.8.7
 pkgrel=1
 pkgdesc="Linux Infrared Remote Control utils (irdroid version)"
-arch=('i686' 'x86_64' 'armv7h')
+arch=('i686' 'x86_64' 'armv7h' 'aarch64')
 url="http://www.lirc.org/"
 license=('GPL')
 depends=('alsa-lib' 'libx11' 'libftdi-compat' 'libirman')
@@ -20,13 +20,19 @@ source=("lirc.tar.gz::http://www.irdroid.com/wp-content/plugins/download-monitor
         lirc.logrotate
         lirc.tmpfiles
         lircd.service)
-md5sums=('dba13e4d2113129abd98ea6548ba6183'
+md5sums=('64548f86d6ecf8a2456e511e8aa14984'
          '3deb02604b37811d41816e9b4385fcc3'
          'febf25c154a7d36f01159e84f26c2d9a'
          '64e7e7d4a6befe57c6e42777fdf0a36f')
 
 build() {
   cd "${srcdir}/irtoy"
+  
+  chmod +x ./configure
+
+  # Fix some C stuff that causes linking to fail; line numbers will likely change
+  sed -i '182s/inline //' irtoy/daemons/transmit.c
+  sed -i '417s/inline //' irtoy/daemons/receive.c
 
   ./configure --prefix=/usr --sbindir=/usr/bin --sysconfdir=/etc --localstatedir=/var \
     --with-transmitter --with-driver=usb_irtoy --enable-sandboxed
