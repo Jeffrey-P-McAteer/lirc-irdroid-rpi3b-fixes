@@ -36,6 +36,9 @@ build() {
   sed -i '256s/inline //' ./daemons/lircd.c
   sed -i '198s/inline //' ./tools/lircrcd.c
 
+  # Oh my god this is the worst C I've read this year.
+  sed -i '198s/manidx/"%s", manidx/' ./doc/man2html.c
+
   ./configure --prefix=/usr --sbindir=/usr/bin --sysconfdir=/etc --localstatedir=/var \
     --with-transmitter --with-driver=usb_irtoy --enable-sandboxed
   make
